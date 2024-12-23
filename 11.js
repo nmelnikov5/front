@@ -1,20 +1,51 @@
-document.addEventListener('DOMContentLoaded', function() {
-    
-    const obo = document.getElementById("obo");
-    obo.textContent = "Добро пожаловать на наш сайт!";
 
-    const headernav = documet.getElementByClassName("header-nav");
-    headernav.style.color = "red";
-
-    // Изменение текста первого параграфа
-    const firstParagraph = document.querySelector('p');
-    if (firstParagraph) {
-        firstParagraph.textContent = "Это новый текст параграфа.";
+const formData = {
+    name: '',
+    email: '',
+    phone: '',
+    date: '',
+    comments: '',
+  
+    printData() {
+      console.log(`
+        Имя: ${this.name}
+        E-mail: ${this.email}
+        Телефон: ${this.phone}
+        Дата: ${this.date}
+        Комментарий: ${this.comments}
+      `);
     }
+  };
+  
+  
+  function submitForm(event) {
+    event.preventDefault(); 
+  
+  
+    formData.name = document.getElementById('name').value;
+    formData.email = document.getElementById('email').value;
+    formData.phone = document.getElementById('phone1').value;
+    formData.date = document.getElementById('date').value;
+    formData.comments = document.getElementById('comments').value;
+  
+    
+    if (!formData.name || !formData.email || !formData.comments) {
+      alert('Пожалуйста, заполните все обязательные поля.');
+      return;
+    }
+  
+    if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(formData.email)) {
+      alert('Некорректный адрес электронной почты.');
+      return;
+    }
+  
+    
+    formData.printData();
 
-    // Скрытие встроенного видео
-    const videoElements = document.querySelectorAll('video');
-    videoElements.forEach(video => {
-        video.style.display = 'none';
-    });
-});
+    
+    document.getElementById('contactForm').reset();
+  }
+  
+  
+  document.getElementById('contactForm').addEventListener('submit', submitForm);
+  
